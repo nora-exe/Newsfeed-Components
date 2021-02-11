@@ -102,7 +102,44 @@ const data = [
 
     <span class="expandButton">+</span>
   </div>
+*/
 
+// created elements
+
+function articleMaker(articleObj){
+  const article = document.createElement('div');
+  const articleTitle = document.createElement('h2');
+  const articleDate = document.createElement('p');
+  const parOne = document.createElement('p');
+  const parTwo = document.createElement('p');
+  const parThree = document.createElement('p');
+  const expandBtn = document.createElement('span');
+
+// defined classes
+
+  article.classList.add('article');
+  articleDate.classList.add('date');
+  expandBtn.classList.add('expandButton');
+
+// add text
+
+  articleTitle.textContent = articleObj.title;
+  articleDate.textContent = articleObj.date;
+  parOne.textContent = articleObj.firstParagraph;
+  parTwo.textContent = articleObj.secondParagraph;
+  parThree.textContent = articleObj.thirdParagraph;
+  expandBtn.textContent = '+';
+
+// append elements
+
+article.appendChild(articleTitle);
+article.appendChild(articleDate);
+article.appendChild(parOne);
+article.appendChild(parTwo);
+article.appendChild(parThree);
+article.appendChild(expandBtn);
+
+  /*
   Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
   This listener should toggle the class 'article-open' on div.article.
 
@@ -114,3 +151,34 @@ const data = [
   Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
   Refresh the page to see the new article.
 */
+
+// adds event: expand on click
+expandBtn.addEventListener(`click`, e => {
+  article.classList.toggle(`article-open`);
+})
+
+// return
+
+return article;
+}
+
+// select parent element to put articles inside of (Accordion - expand/collapse)
+
+const accordion = document.querySelector(`.articles`);
+
+// loop over data & create components
+
+data.forEach(article => {
+  accordion.appendChild(articleMaker(article));
+})
+
+// adding new element
+
+accordion.appendChild(articleMaker({
+  title: 'Covfefe, Freshly Squeezed',
+  date: 'Feb 10th, 2021',
+  firstParagraph: 'Blue mountain medium seasonal espresso, dark white kopi-luwak, robust milk seasonal cup, fair trade, café au lait acerbic roast aroma sit ristretto siphon, con panna single origin aged cinnamon shop. Eu aftertaste white, at sugar java breve caramelization filter aged, arabica, galão body caffeine, cultivar, as, percolator instant trifecta espresso seasonal. Trifecta flavour espresso dark breve sweet sit turkish milk.',
+  secondParagraph:'Aftertaste french press java whipped affogato, doppio caramelization rich percolator redeye cappuccino. Americano arabica to go dripper macchiato, qui roast doppio aged espresso kopi-luwak filter. Skinny cinnamon wings blue mountain viennese half and half turkish. Extra  beans body robust in turkish sweet beans. Wings, to go black café au lait crema roast, caffeine, single shot rich trifecta est to go, roast ut percolator barista affogato saucer so iced.',
+  thirdParagraph: 'French press et, aftertaste extra  redeye pumpkin spice qui, grounds filter percolator foam cup that instant. Shop cortado, robusta, coffee black decaffeinated steamed latte, and rich cortado, seasonal irish frappuccino irish doppio. Aroma blue mountain siphon caramelization beans ut filter irish breve instant aromatic java eu at brewed. A sit grinder et to go barista half and half white ristretto, con panna french press whipped lungo black. Et a aromatic con panna grinder lungo in mug, skinny rich froth grinder ristretto cultivar caffeine. Sit siphon breve turkish crema café au lait wings breve black, medium, cultivar grounds latte, acerbic sugar percolator, cappuccino ristretto siphon grinder carajillo caffeine sugar.',
+}))
+
